@@ -11,10 +11,25 @@ mux4to1 M3 (in[3:0], sel[1:0], t[0]);
 mux4to1 M4 (t, sel[3:2], out);
 
 endmodule
+
 module mux4to1 (in, sel ,out);
 input [3:0] in;
 input [1:0] sel;
 output out;
+wire [1:0] t;
 
-assign out = in[sel];
+mux2to1 M0 (in[3:2], sel[0], t[1]);
+mux2to1 M1 (in[1:0], sel[0], t[0]);
+mux2to1 M2 (t, sel[1], out);
+endmodule
+
+module mux2to1 (in, sel, out);
+input [1:0] in;
+input sel;
+output out;
+
+wire t1,t2,t3;
+not g1 (t1,sel);
+and g2 (t2,t1,in[0]), g3 (t3,sel,in[1]);
+or g4 (out, t2, t3);
 endmodule
