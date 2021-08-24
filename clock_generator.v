@@ -3,7 +3,6 @@ output reg clk;
 
 inital 
 clk = 0;
- begin
     
 always 
 #5 clk = ~clk;
